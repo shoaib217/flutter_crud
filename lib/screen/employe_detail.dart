@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:personal_detail/widgets/employee_form.dart';
-import '../model/employee_data.dart';
 
 class EmployeDetail extends StatelessWidget {
-  const EmployeDetail(this.employeData, {super.key});
-  final Function(EmployeeData employeeData) employeData;
+  const EmployeDetail({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +12,7 @@ class EmployeDetail extends StatelessWidget {
         child: Container(
             padding: const EdgeInsets.all(15),
             alignment: Alignment.center,
-            child: EmployeForm(employeData)),
+            child: EmployeForm()),
       ),
     );
   }

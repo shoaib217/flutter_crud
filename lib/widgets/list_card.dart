@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personal_detail/main.dart';
+import 'package:personal_detail/custom_route.dart';
 import 'package:personal_detail/model/main_model.dart';
 import 'package:personal_detail/providers/user_provider.dart';
 import 'package:personal_detail/screen/personal_detail.dart';
@@ -29,22 +29,11 @@ class ListItemCard extends StatelessWidget {
                     .setForEdit(true);
                 Provider.of<UserProvider>(context, listen: false)
                     .setDataForEdit(mainModel);
-                Navigator.of(context).pushNamed(MyApp.personalDetail);
+                MyRoute(context, const PersonalDetail()).navigate();
               },
             ),
           ),
         ),
-        Container(
-          margin: const EdgeInsets.only(right: 10),
-          child: IconButton(
-            icon: const Icon(Icons.delete),
-            color: Colors.red,
-            onPressed: () {
-              Provider.of<UserProvider>(context, listen: false)
-                  .deleteUser(_personData.id);
-            },
-          ),
-        )
       ],
     );
   }

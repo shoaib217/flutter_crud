@@ -15,12 +15,17 @@ class UserProvider with ChangeNotifier {
     return [..._items];
   }
 
+  late PersonData personData;
+
+  late EmployeeData employeeData;
+
+  late BankData bankData;
+
   late MainModel mainModel;
 
   bool editMode = false;
 
-  Future<void> addUser(PersonData personData, EmployeeData employeeData,
-      BankData bankData) async {
+  Future<void> addUser() async {
     notifyListeners();
     print("id---${personData.id}");
     var gender = 'male';

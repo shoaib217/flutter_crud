@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:personal_detail/main.dart';
+import 'package:personal_detail/custom_route.dart';
 import 'package:personal_detail/model/personal_data.dart';
 import 'package:personal_detail/providers/user_provider.dart';
+import 'package:personal_detail/screen/employe_detail.dart';
 import 'package:provider/provider.dart';
 
 enum Gender { male, female }
 
 class PersonalForm extends StatefulWidget {
-  const PersonalForm(this.persondata, {super.key});
-  final Function(PersonData personData) persondata;
+  const PersonalForm({super.key});
 
   @override
   State<PersonalForm> createState() => _PersonalFormState();
@@ -38,16 +38,15 @@ class _PersonalFormState extends State<PersonalForm> {
     FocusScope.of(context).unfocus();
     if (_formKey.currentState!.validate()) {
       print('validated');
-      var userProvider = Provider.of<UserProvider>(context, listen: false);
-      widget.persondata(PersonData(
-          id: userProvider.editMode
-              ? userProvider.mainModel.personData.id
+      Provider.of<UserProvider>(context, listen: false).personData = PersonData(
+          id: Provider.of<UserProvider>(context, listen: false).editMode
+              ? Provider.of<UserProvider>(context, listen: false).mainModel.personData.id
               : DateTime.now().toString(),
           name: _nameController.text,
           email: _emailController.text,
           mobile: _mobileController.text,
-          gender: _gender!));
-      Navigator.of(context).pushNamed(MyApp.employeeDetail);
+          gender: _gender!);
+          MyRoute(context, const EmployeDetail()).navigate();
     }
   }
 

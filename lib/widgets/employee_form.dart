@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:personal_detail/custom_route.dart';
 import 'package:personal_detail/main.dart';
 import 'package:personal_detail/model/employee_data.dart';
+import 'package:personal_detail/screen/bank_detail.dart';
+import 'package:personal_detail/widgets/bank_form.dart';
 import 'package:provider/provider.dart';
 import '../providers/user_provider.dart';
 
@@ -12,9 +15,7 @@ const List<String> designations = <String>[
 ];
 
 class EmployeForm extends StatefulWidget {
-  EmployeForm(this.employeData, {super.key});
-
-  final Function(EmployeeData employeeData) employeData;
+  EmployeForm({super.key});
 
   @override
   State<EmployeForm> createState() => _EmployeFormState();
@@ -41,10 +42,11 @@ class _EmployeFormState extends State<EmployeForm> {
   void _saveEmployee() {
     FocusScope.of(context).unfocus();
     if (_formKey.currentState!.validate()) {
-      widget.employeData(EmployeeData(
-          _nameController.text, _emailController.text, dropdownValue));
+      Provider.of<UserProvider>(context, listen: false).employeeData =
+          EmployeeData(
+              _nameController.text, _emailController.text, dropdownValue);
 
-      Navigator.of(context).pushNamed(MyApp.bankDetail);
+      MyRoute(context, const BankDetails()).navigate();
     }
   }
 

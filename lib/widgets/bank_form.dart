@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:personal_detail/screen/home_screen.dart';
+import 'package:personal_detail/utility.dart';
 import '../model/bank_data.dart';
 import 'package:provider/provider.dart';
 import '../providers/user_provider.dart';
 
 class BankForm extends StatefulWidget {
-  const BankForm(this._bankData, this.ctx, {super.key});
-  final Function(BankData bankData, BuildContext context) _bankData;
+  const BankForm(this.ctx, {super.key});
   final BuildContext ctx;
 
   @override
@@ -36,11 +35,15 @@ class _BankFormState extends State<BankForm> {
   void _saveBankData() {
     FocusScope.of(context).unfocus();
     if (_formKey.currentState!.validate()) {
-      widget._bankData(
-          BankData(
-              _accNumber.text, _accHolderName.text, _ifsc.text, _bankName.text),
-          context);
+      if(Provider.of<UserProvider>(context, listen: false).editMode){
+        Utility().showSnackBar(context, "Details Updated Successfully");
 
+      }else{
+        Utility().showSnackBar(context, "Details Saved Successfully");
+      }
+      Provider.of<UserProvider>(context, listen: false).bankData = BankData(
+          _accNumber.text, _accHolderName.text, _ifsc.text, _bankName.text);
+      Provider.of<UserProvider>(context, listen: false).addUser();
       Navigator.of(widget.ctx).pushAndRemoveUntil(
           MaterialPageRoute(builder: (ctx) => HomeScreen()), (route) => false);
     }
