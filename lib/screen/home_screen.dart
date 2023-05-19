@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:personal_detail/custom_route.dart';
 import 'package:personal_detail/providers/user_provider.dart';
@@ -34,32 +36,50 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemCount: userData.items.length,
                         itemBuilder: (ctx, i) => Dismissible(
                           key: ValueKey<int>(i),
-                          child: ListItemCard(userData.items[i]),
                           direction: DismissDirection.endToStart,
                           background: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(10)),
+                            margin: const EdgeInsets.fromLTRB(5, 5, 5, 5),
                             padding: const EdgeInsets.only(right: 20),
                             alignment: Alignment.centerRight,
-                            color: Colors.red,
                             child: const Icon(Icons.delete),
                           ),
                           onDismissed: (direction) {
                             var undoData = userData.items[i];
-                             ScaffoldMessenger.of(context).showSnackBar(
+                            ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text("${userData.items[i].personData.name} Removed From List"),
-                              action: SnackBarAction(label: "UNDO", onPressed: (){
-                                var userProvider = Provider.of<UserProvider>(context,listen: false);
-                                userProvider.personData = undoData.personData;
-                                userProvider.employeeData = undoData.employeeData;
-                                userProvider.bankData = undoData.bankData;
-                                userProvider.editMode =false;
-                                userProvider.addUser();
-                                setState(() {});
-                              }),),
+                                content: Text(
+                                    "${userData.items[i].personData.name} Removed From List"),
+                                action: SnackBarAction(
+                                    label: "UNDO",
+                                    onPressed: () {
+                                      var userProvider =
+                                          Provider.of<UserProvider>(context,
+                                              listen: false);
+                                      userProvider.personData =
+                                          undoData.personData;
+                                      userProvider.employeeData =
+                                          undoData.employeeData;
+                                      userProvider.bankData = undoData.bankData;
+                                      userProvider.editMode = false;
+                                      userProvider.addUser();
+                                      setState(() {});
+                                    }),
+                              ),
                             );
                             Provider.of<UserProvider>(context, listen: false)
                                 .deleteUser(userData.items[i].personData.id);
                           },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color:
+                                    Color(userData.items[i].personData.color),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: ListItemCard(userData.items[i]),
+                            margin: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+                          ),
                         ),
                       )),
                 child: const Center(

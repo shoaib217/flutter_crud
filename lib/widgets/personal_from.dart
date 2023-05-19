@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:personal_detail/custom_route.dart';
 import 'package:personal_detail/model/personal_data.dart';
@@ -34,21 +36,24 @@ class _PersonalFormState extends State<PersonalForm> {
     }
   }
 
-  var tes = [Random().nextInt(Colors.primaries.length)].shade200;
-
   void _savedDetail() {
     FocusScope.of(context).unfocus();
     if (_formKey.currentState!.validate()) {
       print('validated');
       Provider.of<UserProvider>(context, listen: false).personData = PersonData(
           id: Provider.of<UserProvider>(context, listen: false).editMode
-              ? Provider.of<UserProvider>(context, listen: false).mainModel.personData.id
+              ? Provider.of<UserProvider>(context, listen: false)
+                  .mainModel
+                  .personData
+                  .id
               : DateTime.now().toString(),
           name: _nameController.text,
           email: _emailController.text,
           mobile: _mobileController.text,
-          gender: _gender!);
-          MyRoute(context, const EmployeDetail()).navigate();
+          gender: _gender!,
+          color: Colors.primaries[Random().nextInt(Colors.primaries.length)]
+              .shade200.value);
+      MyRoute(context, const EmployeDetail()).navigate();
     }
   }
 

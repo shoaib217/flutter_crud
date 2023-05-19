@@ -9,7 +9,7 @@ class DBHelper {
     return openDatabase(path.join(dbPath, 'person_detail.db'),
         onCreate: (db, version) {
       return db.execute(
-          'CREATE TABLE user_detail(id TEXT PRIMARY KEY,name TEXT,email TEXT,mobile TEXT,gender INTEGER,empName TEXT,empEmail TEXT,designation TEXT,accountNo TEXT,accountHolderName TEXT,ifscCode TEXT,bankName TEXT)');
+          'CREATE TABLE user_detail(id TEXT PRIMARY KEY,name TEXT,email TEXT,mobile TEXT,gender INTEGER,cardColor INTEGER,empName TEXT,empEmail TEXT,designation TEXT,accountNo TEXT,accountHolderName TEXT,ifscCode TEXT,bankName TEXT)');
     }, version: 1);
   }
 

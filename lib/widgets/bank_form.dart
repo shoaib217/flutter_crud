@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:personal_detail/screen/home_screen.dart';
 import 'package:personal_detail/utility.dart';
@@ -35,10 +37,9 @@ class _BankFormState extends State<BankForm> {
   void _saveBankData() {
     FocusScope.of(context).unfocus();
     if (_formKey.currentState!.validate()) {
-      if(Provider.of<UserProvider>(context, listen: false).editMode){
+      if (Provider.of<UserProvider>(context, listen: false).editMode) {
         Utility().showSnackBar(context, "Details Updated Successfully");
-
-      }else{
+      } else {
         Utility().showSnackBar(context, "Details Saved Successfully");
       }
       Provider.of<UserProvider>(context, listen: false).bankData = BankData(

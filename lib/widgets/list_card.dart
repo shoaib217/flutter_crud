@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:personal_detail/custom_route.dart';
 import 'package:personal_detail/model/main_model.dart';
