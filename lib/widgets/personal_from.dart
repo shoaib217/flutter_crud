@@ -34,6 +34,8 @@ class _PersonalFormState extends State<PersonalForm> {
     }
   }
 
+  var tes = [Random().nextInt(Colors.primaries.length)].shade200;
+
   void _savedDetail() {
     FocusScope.of(context).unfocus();
     if (_formKey.currentState!.validate()) {
