@@ -110,7 +110,9 @@ class _PersonalFormState extends State<PersonalForm> {
               if (value.toString().trim().isEmpty) {
                 return 'Please Enter Mobile Number.';
               } else if (value!.length < 10) {
-                return 'Please Enter Valid Mobile Number.';
+                return 'Mobile Number Should Be 10 Digits.';
+              } else if(!value.startsWith('9') && !value.startsWith('8') && !value.startsWith('7')){
+                return 'Invalid Mobile Number';
               }
               return null;
             },

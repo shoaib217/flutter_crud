@@ -24,16 +24,20 @@ class UserProvider with ChangeNotifier {
   late MainModel mainModel;
 
   bool editMode = false;
+  
+
+  void addUserToList(int index){
+    _items.insert(index,MainModel(personData, employeeData, bankData));
+  }
 
   Future<void> addUser() async {
-    notifyListeners();
     print("id---${personData.id}");
     var gender = 'male';
     if (personData.gender == Gender.female) {
       gender = 'female';
     }
     if (editMode) {
-      DBHelper.update({
+      await DBHelper.update({
         'name': personData.name,
         'email': personData.email,
         'mobile': personData.mobile,
@@ -48,7 +52,7 @@ class UserProvider with ChangeNotifier {
         'bankName': bankData.bankName,
       }, personData.id);
     } else {
-      DBHelper.insert({
+      await DBHelper.insert({
         'id': personData.id,
         'name': personData.name,
         'email': personData.email,
@@ -64,6 +68,7 @@ class UserProvider with ChangeNotifier {
         'bankName': bankData.bankName,
       });
     }
+      notifyListeners();
   }
 
   Future<void> fetchAndSetData() async {
@@ -93,7 +98,7 @@ class UserProvider with ChangeNotifier {
         )
         .toList();
     print("object - $items");
-    notifyListeners();
+    // notifyListeners();
   }
 
   void setForEdit(bool value) {
@@ -105,8 +110,8 @@ class UserProvider with ChangeNotifier {
   }
 
   Future<void> deleteUser(String id) async {
-    await DBHelper.deleteUser(id);
     _items.removeWhere((element) => element.personData.id == id);
+    await DBHelper.deleteUser(id);
     notifyListeners();
   }
 }
