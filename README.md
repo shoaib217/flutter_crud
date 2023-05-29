@@ -1,6 +1,6 @@
-# personal_detail
+# Employe Detais
 
-A new Flutter project.
+This project Demonstrate the crud operation in flutter.
 
 ## Getting Started
 
