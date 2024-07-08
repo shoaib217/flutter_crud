@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:personal_detail/helper/db_helper.dart';
 import 'package:personal_detail/model/bank_data.dart';
@@ -24,10 +22,9 @@ class UserProvider with ChangeNotifier {
   late MainModel mainModel;
 
   bool editMode = false;
-  
 
-  void addUserToList(int index){
-    _items.insert(index,MainModel(personData, employeeData, bankData));
+  void addUserToList(int index) {
+    _items.insert(index, MainModel(personData, employeeData, bankData));
   }
 
   Future<void> addUser() async {
@@ -68,7 +65,7 @@ class UserProvider with ChangeNotifier {
         'bankName': bankData.bankName,
       });
     }
-      notifyListeners();
+    notifyListeners();
   }
 
   Future<void> fetchAndSetData() async {

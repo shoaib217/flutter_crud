@@ -17,7 +17,7 @@ class PersonalForm extends StatefulWidget {
 }
 
 class _PersonalFormState extends State<PersonalForm> {
-  var _nameController = TextEditingController();
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _mobileController = TextEditingController();
 
@@ -111,7 +111,9 @@ class _PersonalFormState extends State<PersonalForm> {
                 return 'Please Enter Mobile Number.';
               } else if (value!.length < 10) {
                 return 'Mobile Number Should Be 10 Digits.';
-              } else if(!value.startsWith('9') && !value.startsWith('8') && !value.startsWith('7')){
+              } else if (!value.startsWith('9') &&
+                  !value.startsWith('8') &&
+                  !value.startsWith('7')) {
                 return 'Invalid Mobile Number';
               }
               return null;
@@ -161,7 +163,7 @@ class _PersonalFormState extends State<PersonalForm> {
           const SizedBox(
             height: 70,
           ),
-          ElevatedButton(
+          FilledButton(
             onPressed: _savedDetail,
             child: const Text(
               'Next',

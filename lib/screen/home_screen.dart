@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:personal_detail/custom_route.dart';
 import 'package:personal_detail/model/main_model.dart';
@@ -13,31 +11,33 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var myUserProvider = Provider.of<UserProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Crud Operation'),
       ),
       body: FutureBuilder(
-        future:
-            Provider.of<UserProvider>(context, listen: false).fetchAndSetData(),
-        builder: (ctx, snapshot) => snapshot.connectionState ==
-                ConnectionState.waiting
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : Consumer<UserProvider>(
-                builder: (ctx, userData, ch) =>
-                    userData.items.isEmpty ? ch! : MyListView(userData.items),
-                child: const Center(
-                  child: Text(
-                    'No User Yet!',
+        future: myUserProvider.fetchAndSetData(),
+        builder: (ctx, snapshot) =>
+            snapshot.connectionState == ConnectionState.waiting
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Consumer<UserProvider>(
+                    builder: (ctx, userData, ch) => userData.items.isEmpty
+                        ? ch!
+                        : MyListView(userData.items, myUserProvider),
+                    child: const Center(
+                      child: Text(
+                        'No User Yet!',
+                        style: TextStyle(fontSize: 24),
+                      ),
+                    ),
                   ),
-                ),
-              ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Provider.of<UserProvider>(context, listen: false).setForEdit(false);
+          myUserProvider.setForEdit(false);
           MyRoute(context, const PersonalDetail()).navigate();
         },
         child: const Icon(Icons.add),
@@ -47,8 +47,9 @@ class HomeScreen extends StatelessWidget {
 }
 
 class MyListView extends StatelessWidget {
-  const MyListView(this.items, {super.key});
+  const MyListView(this.items, this.userProvider, {super.key});
   final List<MainModel> items;
+  final UserProvider userProvider;
 
   @override
   Widget build(BuildContext context) {
@@ -75,8 +76,7 @@ class MyListView extends StatelessWidget {
               action: SnackBarAction(
                   label: "UNDO",
                   onPressed: () {
-                    var userProvider =
-                        Provider.of<UserProvider>(context, listen: false);
+                    print("undo button clicked");
                     userProvider.personData = undoData.personData;
                     userProvider.employeeData = undoData.employeeData;
                     userProvider.bankData = undoData.bankData;
@@ -86,8 +86,7 @@ class MyListView extends StatelessWidget {
                   }),
             ),
           );
-          Provider.of<UserProvider>(context, listen: false)
-              .deleteUser(items[i].personData.id);
+          userProvider.deleteUser(items[i].personData.id);
         },
         child: Container(
           decoration: BoxDecoration(

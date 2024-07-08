@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class BankData {
   String accountNo;
   String accountHolderName;

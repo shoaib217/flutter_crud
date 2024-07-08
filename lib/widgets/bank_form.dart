@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:personal_detail/screen/home_screen.dart';
 import 'package:personal_detail/utility.dart';
@@ -16,11 +14,11 @@ class BankForm extends StatefulWidget {
 }
 
 class _BankFormState extends State<BankForm> {
-  var _formKey = GlobalKey<FormState>();
-  var _accHolderName = TextEditingController();
-  var _accNumber = TextEditingController();
-  var _ifsc = TextEditingController();
-  var _bankName = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final _accHolderName = TextEditingController();
+  final _accNumber = TextEditingController();
+  final _ifsc = TextEditingController();
+  final _bankName = TextEditingController();
 
   @override
   void initState() {
@@ -121,7 +119,7 @@ class _BankFormState extends State<BankForm> {
           const SizedBox(
             height: 20,
           ),
-          ElevatedButton(
+          FilledButton(
             onPressed: _saveBankData,
             child: Text(
               userProvider.editMode ? 'Update' : 'Save',

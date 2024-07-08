@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import '../widgets/personal_from.dart';
 
 class PersonData {

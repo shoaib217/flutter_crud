@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:personal_detail/custom_route.dart';
 import 'package:personal_detail/model/main_model.dart';
@@ -8,8 +6,8 @@ import 'package:personal_detail/screen/personal_detail.dart';
 import 'package:provider/provider.dart';
 
 class ListItemCard extends StatelessWidget {
-  ListItemCard(this.mainModel, {super.key});
-  MainModel mainModel;
+  const ListItemCard(this.mainModel, {super.key});
+  final MainModel mainModel;
   @override
   Widget build(BuildContext context) {
     var _personData = mainModel.personData;

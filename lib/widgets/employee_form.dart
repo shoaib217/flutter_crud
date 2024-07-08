@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:personal_detail/custom_route.dart';
-import 'package:personal_detail/main.dart';
 import 'package:personal_detail/model/employee_data.dart';
 import 'package:personal_detail/screen/bank_detail.dart';
-import 'package:personal_detail/widgets/bank_form.dart';
 import 'package:provider/provider.dart';
 import '../providers/user_provider.dart';
 
@@ -22,8 +20,8 @@ class EmployeForm extends StatefulWidget {
 }
 
 class _EmployeFormState extends State<EmployeForm> {
-  var _formKey = GlobalKey<FormState>();
-  var _nameController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
 
   String dropdownValue = designations.first;
@@ -121,7 +119,7 @@ class _EmployeFormState extends State<EmployeForm> {
           const SizedBox(
             height: 20,
           ),
-          ElevatedButton(
+          FilledButton(
             onPressed: _saveEmployee,
             child: const Text(
               'Next',
